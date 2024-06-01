@@ -68,7 +68,6 @@ interface SelectItemProps {
   value: string;
   label: string;
   closeOnPress?: boolean;
-  textClasses?: string;
 }
 
 interface SelectSeparatorProps {
