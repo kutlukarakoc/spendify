@@ -44,9 +44,9 @@ const buttonTextVariants = cva(
         link: 'text-primary group-active:underline',
       },
       size: {
-        default: '',
-        sm: '',
-        lg: 'native:text-lg',
+        default: 'text-base',
+        sm: 'text-base',
+        lg: 'native:text-base',
         icon: '',
       },
     },

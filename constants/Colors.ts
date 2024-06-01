@@ -1,0 +1,25 @@
+export const Colors = {
+  main: "#ffffff",
+
+  "blue-50": "#E6F1FD",
+  "blue-100": "#B0D5FA",
+  "blue-200": "#8AC0F7",
+  "blue-300": "#54A4F4",
+  "blue-400": "#3392F1",
+  "blue-500": "#0077EE",
+  "blue-600": "#006CD9",
+  "blue-700": "#0054A9",
+  "blue-800": "#004183",
+  "blue-900": "#003264",
+  
+  "grey-50": "#EAEAEA",
+  "grey-100": "#BDBDBD",
+  "grey-200": "#9D9D9D",
+  "grey-300": "#707070",
+  "grey-400": "#545454",
+  "grey-500": "#292929",
+  "grey-600": "#252525",
+  "grey-700": "#1D1D1D",
+  "grey-800": "#171717",
+  "grey-900": "#111111",
+} as const;

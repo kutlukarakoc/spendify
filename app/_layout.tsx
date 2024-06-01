@@ -10,6 +10,8 @@ import { NAV_THEME } from '~/lib/constants';
 import { useColorScheme } from '~/lib/useColorScheme';
 import { PortalHost } from '~/components/primitives/portal';
 import { ThemeToggle } from '~/components/ThemeToggle';
+import { useFonts } from "expo-font";
+import { Colors } from '~/constants/Colors';
 
 const LIGHT_THEME: Theme = {
   dark: false,
@@ -31,6 +33,10 @@ SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
   const { colorScheme, setColorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+
+  const [loaded] = useFonts({
+    Inter: require("../assets/fonts/Inter.ttf"),
+  });
 
   React.useEffect(() => {
     (async () => {
@@ -57,7 +63,13 @@ export default function RootLayout() {
     });
   }, []);
 
-  if (!isColorSchemeLoaded) {
+  React.useEffect(() => {
+    if (loaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [loaded]);
+
+  if (!loaded || !isColorSchemeLoaded) {
     return null;
   }
 
@@ -65,13 +77,20 @@ export default function RootLayout() {
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
       <Stack>
-        <Stack.Screen
-          name='index'
+      <Stack.Screen
+          name="(tabs)"
           options={{
-            title: 'Starter Base',
+            title: "Spendify",
             headerRight: () => <ThemeToggle />,
+            headerTintColor: Colors["blue-500"],
+            headerTitleStyle: {
+              fontWeight: "600",
+              fontSize: 26,
+              fontFamily: "Inter",
+            }
           }}
         />
+        <Stack.Screen name="+not-found" />
       </Stack>
       <PortalHost />
     </ThemeProvider>
