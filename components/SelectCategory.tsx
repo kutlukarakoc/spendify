@@ -32,7 +32,7 @@ export const SelectCategory = ({
 
   return (
     <Select className="w-[45%]">
-      <SelectTrigger className="flex-grow bg-primary/20">
+      <SelectTrigger className="flex-grow bg-primary/20 justify-center gap-x-1" iconClasses="text-primary opacity-100">
         <SelectValue
           className="text-primary text-base native:text-base"
           placeholder="Kategoriler"
