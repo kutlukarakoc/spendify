@@ -17,6 +17,8 @@ type SlottablePressableProps = ComponentPropsWithAsChild<typeof Pressable> & {
    * Platform: WEB ONLY
    */
   onKeyUp?: (ev: React.KeyboardEvent) => void;
+} & {
+  iconClasses?: string;
 };
 type SlottableTextProps = ComponentPropsWithAsChild<typeof Text>;
 
