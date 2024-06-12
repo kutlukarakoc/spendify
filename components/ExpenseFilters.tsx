@@ -23,6 +23,7 @@ import "dayjs/locale/tr";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
+import dayjs from "dayjs";
 
 export const ExpenseFilters = () => {
   const [range, setRange] = useState<{
@@ -33,7 +34,16 @@ export const ExpenseFilters = () => {
   const [minAmount, setMinAmount] = useState("");
   const [maxAmount, setMaxAmount] = useState("");
 
-  console.log("minAmount", minAmount);
+  const formattedStartDate = range.startDate
+    ? dayjs(range.startDate).format("DD-MM-YY").replaceAll("-", ".")
+    : null;
+  const formattedEndDate = range.endDate
+    ? dayjs(range.endDate).format("DD-MM-YY").replaceAll("-", ".")
+    : null;
+  const fullDate =
+    formattedStartDate && formattedEndDate
+      ? `${formattedStartDate} - ${formattedEndDate}`
+      : null;
 
   return (
     <Dialog className="w-[45%]">
@@ -62,7 +72,7 @@ export const ExpenseFilters = () => {
               <AccordionItem value="date-picker" className="mb-10">
                 <AccordionTrigger>
                   <Text className="text-foreground text-base native:text-base font-normal">
-                    Tarih Aralığına Göre
+                    {fullDate ? fullDate : "Tarih Aralığına Göre"}
                   </Text>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -80,7 +90,7 @@ export const ExpenseFilters = () => {
               <AccordionItem value="payment-method">
                 <AccordionTrigger>
                   <Text className="text-foreground text-base native:text-base font-normal">
-                    Ödeme Yöntemi
+                    {paymentMethod ? paymentMethod : "Ödeme Yöntemi"}
                   </Text>
                 </AccordionTrigger>
                 <AccordionContent>
@@ -127,8 +137,6 @@ export const ExpenseFilters = () => {
                 />
               </View>
             </View>
-
-            
           </View>
         </ScrollView>
         <DialogFooter>
