@@ -35,7 +35,10 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      <View className="mt-6 flex-row justify-between">
+      <View
+        className="mt-6 flex-row justify-between z-[12000]"
+        style={{ elevation: 12000 }}
+      >
         <SelectCategory setSelectedCategory={setSelectedCategory} />
         <ExpenseFilters />
       </View>
