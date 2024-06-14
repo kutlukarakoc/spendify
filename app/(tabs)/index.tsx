@@ -46,7 +46,7 @@ export default function HomeScreen() {
       <FlatList
         data={expenseList}
         renderItem={({ item }) => <ExpenseListItem {...item} />}
-        contentContainerStyle={{ gap: 12, marginTop: 24, paddingBottom: 48 }}
+        contentContainerStyle={{ gap: 12, marginTop: 24, paddingBottom: 56 }}
         showsVerticalScrollIndicator={false}
       />
     </View>
