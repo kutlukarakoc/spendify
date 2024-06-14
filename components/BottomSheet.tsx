@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Dimensions, ScrollView, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
@@ -63,7 +63,9 @@ export const BottomSheet = ({
     translateY.value = withSpring(destination, { damping: 50, stiffness: 200 });
   };
 
-  scrollTo(visible ? -SCREEN_HEIGHT / 3 : SCREEN_HEIGHT);
+  useEffect(() => {
+    scrollTo(visible ? -SCREEN_HEIGHT / 3 : SCREEN_HEIGHT);
+  }, [visible]);
 
   return (
     <GestureDetector gesture={gesture}>
