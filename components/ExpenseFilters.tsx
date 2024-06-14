@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, ScrollView } from "react-native";
+import { View } from "react-native";
 import DateTimePicker, { DateType } from "react-native-ui-datepicker";
 import { BottomSheet } from "~/components/BottomSheet";
 import { Button } from "~/components/ui/button";
@@ -74,34 +74,31 @@ export const ExpenseFilters = () => {
                 />
               </AccordionContent>
             </AccordionItem>
-            <AccordionItem value="payment-method">
-              <AccordionTrigger>
-                <Text className="text-foreground text-base native:text-base font-normal">
-                  {paymentMethod ? paymentMethod : "Ödeme Yöntemi"}
-                </Text>
-              </AccordionTrigger>
-              <AccordionContent>
-                <RadioGroup
-                  value={paymentMethod}
-                  onValueChange={setPaymentMethod}
-                  className="gap-3 flex-row justify-between"
-                >
-                  <RadioItem
-                    value="Nakit"
-                    onLabelPress={() => setPaymentMethod("Nakit")}
-                  />
-                  <RadioItem
-                    value="Kart"
-                    onLabelPress={() => setPaymentMethod("Kart")}
-                  />
-                  <RadioItem
-                    value="Havale"
-                    onLabelPress={() => setPaymentMethod("Havale")}
-                  />
-                </RadioGroup>
-              </AccordionContent>
-            </AccordionItem>
           </Accordion>
+
+          <View className="w-full">
+            <Text className="mb-4 text-foreground text-base native:text-base font-normal">
+              Ödeme Yöntemi
+            </Text>
+            <RadioGroup
+              value={paymentMethod}
+              onValueChange={setPaymentMethod}
+              className="gap-3 flex-row justify-between"
+            >
+              <RadioItem
+                value="Nakit"
+                onLabelPress={() => setPaymentMethod("Nakit")}
+              />
+              <RadioItem
+                value="Kart"
+                onLabelPress={() => setPaymentMethod("Kart")}
+              />
+              <RadioItem
+                value="Havale"
+                onLabelPress={() => setPaymentMethod("Havale")}
+              />
+            </RadioGroup>
+          </View>
 
           <View className="w-full mt-10">
             <Text className="text-foreground text-base font-normal mb-4">
