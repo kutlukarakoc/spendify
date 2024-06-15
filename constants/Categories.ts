@@ -35,7 +35,7 @@ export const Categories = {
     icon: "fast-food-outline",
   },
   other: {
-    name: "Other",
+    name: "Diğer",
     color: "#FF00FF",
     icon: "trail-sign-outline",
   },
