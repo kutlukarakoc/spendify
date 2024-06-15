@@ -25,7 +25,7 @@ export const StatisticsByDate = () => {
 
   return (
     <View className="mt-9">
-      <View className="flex-row justify-between items-start">
+      <View className="flex-row justify-between items-start mb-2">
         <Text className="text-sm mb-7 text-foreground/70 w-1/2 font-medium leading-5">
           Ay, Gün ve Haftaya Göre Harcama İstatistikleri
         </Text>
@@ -85,6 +85,7 @@ export const StatisticsByDate = () => {
           </View>
         </View>
       </View>
+
       <BarChart
         barWidth={15}
         noOfSections={10}
