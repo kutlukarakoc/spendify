@@ -15,7 +15,7 @@ export default function HomeScreen() {
     useState<TransformedCategory | null>(null);
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 px-4">
       <Text className="text-foreground text-lg native:text-lg font-medium">
         Gider Listesi
       </Text>

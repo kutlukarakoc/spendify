@@ -11,7 +11,7 @@ export default function AddExpenseScreen() {
   const [category, setCategory] = useState("");
 
   return (
-    <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+    <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
       <Text className="text-foreground text-lg native:text-lg font-medium">
         Gider Kaydı
       </Text>
