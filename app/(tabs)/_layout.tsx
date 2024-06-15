@@ -6,11 +6,7 @@ import { Colors } from "~/constants/Colors";
 export default function TabLayout() {
   return (
     <Tabs
-      sceneContainerStyle={{
-        paddingLeft: 16,
-        paddingRight: 16,
-        paddingTop: 40,
-      }}
+      sceneContainerStyle={{ paddingTop: 40 }}
       screenOptions={{
         tabBarActiveTintColor: Colors["blue-500"],
         headerShown: false,
