@@ -29,89 +29,95 @@ export const StatisticsByDate = () => {
   const [selectedTime, setSelectedTime] = useState("month");
 
   return (
-    <View className="mt-9">
-      <View className="flex-row justify-between items-start mb-2">
-        <Text className="text-sm mb-7 text-foreground/70 w-1/2 font-medium leading-5">
-          Ay, Gün ve Haftaya Göre Harcama İstatistikleri
-        </Text>
-        <View>
-          <View className="w-full bg-primary/10 flex-row rounded-md py-2 px-3">
-            <Button
-              size="sm"
-              onPress={() => setSelectedTime("day")}
-              className={
-                selectedTime === "day" ? "bg-white h-7" : "bg-transparent h-7"
-              }
-            >
-              <Text
+    <View className="w-full min-h-80 p-4 justify-center bg-background rounded-2xl shadow-md shadow-foreground/5">
+      <View className="overflow-hidden">
+        <View className="flex-row justify-between items-start mb-2">
+          <Text className="mb-7 text-foreground/70 w-1/2 font-medium leading-5">
+            Ay, Gün ve Haftaya Göre Harcama İstatistikleri
+          </Text>
+          <View>
+            <View className="w-full bg-primary/10 flex-row rounded-md py-2 px-3">
+              <Button
+                size="sm"
+                onPress={() => setSelectedTime("day")}
                 className={
-                  selectedTime === "day"
-                    ? "text-primary/60"
-                    : "text-foreground/80"
+                  selectedTime === "day" ? "bg-white h-7" : "bg-transparent h-7"
                 }
               >
-                Gün
-              </Text>
-            </Button>
-            <Button
-              size="sm"
-              onPress={() => setSelectedTime("week")}
-              className={
-                selectedTime === "week" ? "bg-white h-7" : "bg-transparent h-7"
-              }
-            >
-              <Text
+                <Text
+                  className={
+                    selectedTime === "day"
+                      ? "text-primary/60"
+                      : "text-foreground/80"
+                  }
+                >
+                  Gün
+                </Text>
+              </Button>
+              <Button
+                size="sm"
+                onPress={() => setSelectedTime("week")}
                 className={
                   selectedTime === "week"
-                    ? "text-primary/60"
-                    : "text-foreground/80"
+                    ? "bg-white h-7"
+                    : "bg-transparent h-7"
                 }
               >
-                Hafta
-              </Text>
-            </Button>
-            <Button
-              size="sm"
-              onPress={() => setSelectedTime("month")}
-              className={
-                selectedTime === "month" ? "bg-white h-7" : "bg-transparent h-7"
-              }
-            >
-              <Text
+                <Text
+                  className={
+                    selectedTime === "week"
+                      ? "text-primary/60"
+                      : "text-foreground/80"
+                  }
+                >
+                  Hafta
+                </Text>
+              </Button>
+              <Button
+                size="sm"
+                onPress={() => setSelectedTime("month")}
                 className={
                   selectedTime === "month"
-                    ? "text-primary/60"
-                    : "text-foreground/80"
+                    ? "bg-white h-7"
+                    : "bg-transparent h-7"
                 }
               >
-                Ay
-              </Text>
-            </Button>
+                <Text
+                  className={
+                    selectedTime === "month"
+                      ? "text-primary/60"
+                      : "text-foreground/80"
+                  }
+                >
+                  Ay
+                </Text>
+              </Button>
+            </View>
           </View>
         </View>
-      </View>
 
-      <BarChart
-        barWidth={15}
-        noOfSections={10}
-        barBorderColor="#44A6F4"
-        barBorderBottomLeftRadius={0}
-        barBorderBottomRightRadius={0}
-        barBorderTopLeftRadius={4}
-        barBorderTopRightRadius={4}
-        barBorderWidth={2}
-        frontColor="#B0D5FA"
-        data={barData}
-        yAxisThickness={0}
-        xAxisThickness={0}
-        spacing={14}
-        initialSpacing={16}
-        isAnimated
-        rulesType="solid"
-        rulesColor="#F3F2F2"
-        xAxisLabelTextStyle={axisLabelStyles}
-        yAxisTextStyle={axisLabelStyles}
-      />
+        <BarChart
+          barWidth={15}
+          noOfSections={10}
+          barBorderColor="#44A6F4"
+          barBorderBottomLeftRadius={0}
+          barBorderBottomRightRadius={0}
+          barBorderTopLeftRadius={4}
+          barBorderTopRightRadius={4}
+          barBorderWidth={2}
+          frontColor="#B0D5FA"
+          data={barData}
+          yAxisThickness={0}
+          xAxisThickness={0}
+          spacing={14}
+          initialSpacing={16}
+          isAnimated
+          rulesType="solid"
+          rulesColor="#F3F2F2"
+          xAxisLabelTextStyle={axisLabelStyles}
+          yAxisTextStyle={axisLabelStyles}
+        />
+      </View>
     </View>
   );
 };
