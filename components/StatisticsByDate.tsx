@@ -4,8 +4,6 @@ import { BarChart } from "react-native-gifted-charts";
 import { Button } from "~/components/ui/button";
 import { useColorScheme } from "~/lib/useColorScheme";
 
-const data = [{ value: 50 }, { value: 80 }, { value: 90 }, { value: 70 }];
-
 const barData = [
   { value: 10050, label: "O" },
   { value: 500, label: "Ş" },
