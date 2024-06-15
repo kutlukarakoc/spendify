@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Text, View } from "react-native";
 import { BarChart } from "react-native-gifted-charts";
 import { Button } from "~/components/ui/button";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 const data = [{ value: 50 }, { value: 80 }, { value: 90 }, { value: 70 }];
 
@@ -21,6 +22,12 @@ const barData = [
 ];
 
 export const StatisticsByDate = () => {
+  const { isDarkColorScheme } = useColorScheme();
+  const axisLabelStyles = {
+    color: isDarkColorScheme ? "white" : "black",
+    fontSize: 13,
+  };
+
   const [selectedTime, setSelectedTime] = useState("month");
 
   return (
@@ -104,6 +111,8 @@ export const StatisticsByDate = () => {
         isAnimated
         rulesType="solid"
         rulesColor="#F3F2F2"
+        xAxisLabelTextStyle={axisLabelStyles}
+        yAxisTextStyle={axisLabelStyles}
       />
     </View>
   );
