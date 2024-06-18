@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DateTimePicker, { DateType } from "react-native-ui-datepicker";
 import { ScrollView, View } from "react-native";
 import { Text } from "~/components/ui/text";
 import { Button } from "~/components/ui/button";
@@ -6,9 +7,18 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "~/components/ui/radio-group";
 import { transformCategoriesToArray } from "~/lib/helpers/transformCategoriesToArr";
+import "dayjs/locale/tr";
+import { useColorScheme } from "~/lib/useColorScheme";
 
 export default function AddExpenseScreen() {
+  const { isDarkColorScheme } = useColorScheme();
+
   const [category, setCategory] = useState("");
+  const [date, setDate] = useState<DateType | undefined>();
+
+  const calenderTextsColor = isDarkColorScheme
+    ? { color: "#fff" }
+    : { color: "#000" };
 
   return (
     <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
@@ -17,7 +27,7 @@ export default function AddExpenseScreen() {
       </Text>
 
       <View className="flex-col gap-y-5 mt-9">
-        <View className="gap-y-2">
+        <View className="gap-y-3">
           <Label
             className="text-foreground font-normal"
             nativeID="seller-buyer"
@@ -31,7 +41,7 @@ export default function AddExpenseScreen() {
           />
         </View>
 
-        <View className="gap-y-2">
+        <View className="gap-y-3">
           <Label
             className="text-foreground font-normal"
             nativeID="expense-name"
@@ -45,7 +55,7 @@ export default function AddExpenseScreen() {
           />
         </View>
 
-        <View className="gap-y-2 px-1">
+        <View className="gap-y-3 px-1">
           <Label nativeID="category" className="text-foreground font-normal">
             Kategori
           </Label>
@@ -65,7 +75,7 @@ export default function AddExpenseScreen() {
           </RadioGroup>
         </View>
 
-        <View className="gap-y-2">
+        <View className="gap-y-3">
           <Label
             className="text-foreground font-normal"
             nativeID="expense-amount"
@@ -80,22 +90,27 @@ export default function AddExpenseScreen() {
           />
         </View>
 
-        {/* YENİ TARİH COMP EKLENİCEK */}
-        <View className="gap-y-2">
+        <View className="gap-y-3">
           <Label
             className="text-foreground font-normal"
             nativeID="expense-date"
           >
             Tarih
           </Label>
-          <Input
-            className="native:h-12 px-4 border-2 text-sm native:text-sm"
-            placeholder="Gider tarihi giriniz"
-            aria-labelledby="expense-date"
+          <DateTimePicker
+            mode="single"
+            locale="tr"
+            onChange={(params) => setDate(params.date)}
+            date={date}
+            headerButtonColor={isDarkColorScheme ? "#fff" : "#000"}
+            headerTextStyle={calenderTextsColor}
+            todayTextStyle={calenderTextsColor}
+            weekDaysTextStyle={calenderTextsColor}
+            calendarTextStyle={calenderTextsColor}
           />
         </View>
 
-        <View className="gap-y-2">
+        <View className="gap-y-3">
           <Label
             className="text-foreground font-normal"
             nativeID="expense-note"
