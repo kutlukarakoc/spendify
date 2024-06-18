@@ -47,11 +47,8 @@ export const StatisticsByCategory = () => {
 
         <View className="justify-center items-stretch flex-1 gap-y-3">
           {formattedPieData.map((item, index) => (
-            <View className="flex-row justify-start items-start">
-              <View
-                className="flex-row justify-start items-start flex-1"
-                key={index}
-              >
+            <View key={index} className="flex-row justify-start items-start">
+              <View className="flex-row justify-start items-start flex-1">
                 <View
                   className="w-4 h-4 rounded-sm mr-2"
                   style={{ backgroundColor: item.color }}
