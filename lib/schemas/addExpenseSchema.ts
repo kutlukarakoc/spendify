@@ -10,6 +10,6 @@ export const addExpenseSchema = z.object({
     .regex(/^[0-9]+$/, {
       message: "Sadece rakam girilebilir.",
     }),
-  date: z.string().datetime().min(1, "Tarih boş bırakılamaz."),
+  date: z.coerce.date(),
   note: z.string(),
 });
