@@ -24,7 +24,7 @@ export const ExpenseListItem = ({
 
   return (
     <View className="flex-row items-center justify-between border border-foreground/10 rounded-xl px-3 h-[83px]">
-      <View className="flex-row w-[195px]">
+      <View className="flex-row">
         <View
           className="border-2 rounded-full w-[52px] h-[52px] items-center justify-center mr-3"
           style={{
@@ -42,17 +42,17 @@ export const ExpenseListItem = ({
           <Text className="text-foreground font-semibold text-base native:text-base">
             {selectedCategory.name}
           </Text>
-          <Text className="text-foreground/65 mt-1 text-sm native:text-sm">
+          <Text className="text-foreground/65 mt-1 text-sm native:text-sm w-[105px]" numberOfLines={1}>
             {description}
           </Text>
         </View>
       </View>
 
-      <Text className="text-foreground/55 text-base native:text-base">
+      <Text className="text-foreground/55 text-base native:text-base" numberOfLines={1}>
         {formattedDate}
       </Text>
 
-      <Text className="text-primary text-base native:text-base flex-1 ml-5">
+      <Text className="text-primary text-base native:text-base" numberOfLines={1}>
         {amount} ₺
       </Text>
 
