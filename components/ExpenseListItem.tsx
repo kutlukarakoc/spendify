@@ -56,7 +56,7 @@ export const ExpenseListItem = ({
         {amount} ₺
       </Text>
 
-      <Ionicons name="chevron-forward" color={Colors["blue-500"]} size={28} />
+      <Ionicons name="chevron-forward" color={Colors["blue-500"]} size={22} />
     </View>
   );
 };
