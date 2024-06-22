@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Alert, ScrollView, View } from "react-native";
 import DateTimePicker, { DateType } from "react-native-ui-datepicker";
 import { Loading } from "./Loading";
@@ -29,6 +29,8 @@ type AddExpenseForm = {
 };
 
 export default function AddExpenseScreen() {
+  const scrollRef = useRef<ScrollView>(null);
+
   const { isDarkColorScheme } = useColorScheme();
   const calenderTextsColor = isDarkColorScheme
     ? { color: "#fff" }
@@ -79,10 +81,19 @@ export default function AddExpenseScreen() {
     Alert.alert("Gider başarıyla eklendi.");
 
     reset();
+
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
   };
 
   return (
-    <ScrollView className="flex-1 px-4" showsVerticalScrollIndicator={false}>
+    <ScrollView
+      className="flex-1 px-4"
+      showsVerticalScrollIndicator={false}
+      ref={scrollRef}
+    >
       <Text className="text-foreground text-lg native:text-lg font-medium">
         Gider Kaydı
       </Text>
