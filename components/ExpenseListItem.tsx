@@ -3,13 +3,13 @@ import { Ionicons } from "@expo/vector-icons";
 import { Categories } from "~/constants/Categories";
 import { Colors } from "~/constants/Colors";
 import { hexToRgba } from "~/lib/helpers/hexToRgba";
-import { formatTimestamp } from "~/lib/helpers/formatTimestamp";
+import dayjs from "dayjs";
 
 type ExpenseListItemProps = {
   description: string;
   amount: number;
   category: string;
-  date: string;
+  date: number;
 };
 
 export const ExpenseListItem = ({
@@ -19,6 +19,8 @@ export const ExpenseListItem = ({
   date,
 }: ExpenseListItemProps) => {
   const selectedCategory = Categories[category as keyof typeof Categories];
+
+  const formattedDate = dayjs(date * 1000).format("DD/MM/YYYY");
 
   return (
     <View className="flex-row items-center justify-between border border-foreground/10 rounded-xl px-3 h-[83px]">
@@ -40,15 +42,19 @@ export const ExpenseListItem = ({
           <Text className="text-foreground font-semibold text-base native:text-base">
             {selectedCategory.name}
           </Text>
-          <Text className="text-foreground/65 mt-1 text-sm native:text-sm">{description}</Text>
+          <Text className="text-foreground/65 mt-1 text-sm native:text-sm">
+            {description}
+          </Text>
         </View>
       </View>
 
       <Text className="text-foreground/55 text-base native:text-base">
-        {formatTimestamp(date)}
+        {formattedDate}
       </Text>
 
-      <Text className="text-primary text-base native:text-base flex-1 ml-5">{amount} ₺</Text>
+      <Text className="text-primary text-base native:text-base flex-1 ml-5">
+        {amount} ₺
+      </Text>
 
       <Ionicons name="chevron-forward" color={Colors["blue-500"]} size={28} />
     </View>
