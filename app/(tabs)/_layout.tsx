@@ -4,7 +4,7 @@ import { TabBarIcon } from "~/components/navigation/TabBarIcon";
 export default function TabLayout() {
   return (
     <Tabs
-      sceneContainerStyle={{ paddingTop: 40 }}
+      sceneContainerStyle={{ paddingTop: 40, paddingBottom: 20 }}
       screenOptions={{
         tabBarActiveTintColor: "#0077EE",
         headerShown: false,
