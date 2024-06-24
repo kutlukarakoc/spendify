@@ -4,14 +4,16 @@ import { getStorageItem } from "~/lib/utils";
 import { Expense } from "~/types/expense";
 import { GetStorageItem } from "~/types/getStorageItemReturn";
 
-export const useGetExpenses = () => {
+export const useGetExpenses = (perPage: number) => {
   const [expenseList, setExpenseList] = useState<Expense[] | null>(null);
+  const [totalExpenseCount, setTotalExpenseCount] = useState<number>(0);
   const [expensesError, setExpensesError] = useState<string | null>(null);
   const [isExpensesFetching, setIsExpensesFetching] = useState(false);
 
   const getExpenses = async (
     searchQuery: string,
-    selectedCategory: TransformedCategory | null
+    selectedCategory: TransformedCategory | null,
+    page: number
   ) => {
     setIsExpensesFetching(true);
 
@@ -42,7 +44,14 @@ export const useGetExpenses = () => {
       selectedCategory
     );
 
-    setExpenseList(filteredExpenses);
+    setTotalExpenseCount(filteredExpenses.length);
+
+    const paginatedExpenses = filteredExpenses.slice(
+      (page - 1) * perPage,
+      page * perPage
+    );
+
+    setExpenseList(paginatedExpenses);
     setIsExpensesFetching(false);
     if (expensesError !== null) {
       setExpensesError(null);
@@ -81,6 +90,7 @@ export const useGetExpenses = () => {
     getExpenses,
     cleanupExpenseStates,
     expenseList,
+    totalExpenseCount,
     expensesError,
     isExpensesFetching,
   };

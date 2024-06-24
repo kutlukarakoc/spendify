@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
-import { View, FlatList } from "react-native";
+import { View } from "react-native";
 import { ExpenseFilters } from "~/components/ExpenseFilters";
-import { ExpenseListItem } from "~/components/ExpenseListItem";
+import { ExpenseList } from "~/components/ExpenseList";
 import { SelectCategory } from "~/components/SelectCategory";
-import { Text } from "~/components/ui/text";
 import { Input } from "~/components/ui/input";
 import { TransformedCategory } from "~/lib/helpers/transformCategoriesToArr";
 import { Search } from "~/lib/icons/Search";
 import { useIsFocused } from "@react-navigation/native";
 import { useGetExpenses } from "~/hooks/useGetExpenses";
+import { Pagination } from "~/components/Pagination";
+import { ExpenseListError } from "~/components/ExpenseListError";
+import { ExpenseListNoData } from "~/components/ExpenseListNoData";
+
+const ITEMS_PER_PAGE = 5;
 
 export default function HomeScreen() {
   const isFocused = useIsFocused();
@@ -17,57 +21,46 @@ export default function HomeScreen() {
   const [selectedCategory, setSelectedCategory] =
     useState<TransformedCategory | null>(null);
 
+  const [page, setPage] = useState(1);
+
   const {
     getExpenses,
     cleanupExpenseStates,
     expenseList,
+    totalExpenseCount,
     expensesError,
     isExpensesFetching,
-  } = useGetExpenses();
+  } = useGetExpenses(ITEMS_PER_PAGE);
 
   useEffect(() => {
     if (isFocused) {
-      getExpenses(searchQuery, selectedCategory);
+      getExpenses(searchQuery, selectedCategory, page);
     } else {
       cleanupExpenseStates();
     }
-  }, [isFocused, searchQuery, selectedCategory]);
-
-  if (isExpensesFetching) {
-    return (
-      <Text className="mt-10 text-center justify-center items-center flex-1 native:text-2xl">
-        LOADIGN...
-      </Text>
-    );
-  }
+  }, [isFocused, searchQuery, selectedCategory, page]);
 
   if (expensesError) {
-    return (
-      <Text className="mt-10 text-center justify-center items-center flex-1 native:text-2xl">
-        {expensesError}
-      </Text>
-    );
+    return <ExpenseListError />;
+  }
+
+  if (!isExpensesFetching && expenseList === null && !expensesError) {
+    return <ExpenseListNoData />;
   }
 
   return (
     <View className="flex-1 px-4">
-      <Text className="text-foreground text-lg native:text-lg font-medium">
-        Gider Listesi
-      </Text>
-
-      <View className="mt-9">
-        <View className="relative">
-          <Search
-            className="text-foreground/60 absolute z-10 left-4 top-4"
-            size={21}
-          />
-          <Input
-            placeholder="Ara..."
-            className="native:h-14 pl-12 border-2"
-            value={searchQuery}
-            onChangeText={(text: string) => setSearchQuery(text)}
-          />
-        </View>
+      <View className="relative">
+        <Search
+          className="text-foreground/60 absolute z-10 left-4 top-4"
+          size={21}
+        />
+        <Input
+          placeholder="Ara..."
+          className="native:h-14 pl-12 border-2"
+          value={searchQuery}
+          onChangeText={(text: string) => setSearchQuery(text)}
+        />
       </View>
 
       <View
@@ -78,19 +71,17 @@ export default function HomeScreen() {
         <ExpenseFilters />
       </View>
 
-      {expenseList !== null && expenseList.length && (
-        <FlatList
-          data={expenseList}
-          renderItem={({ item: { description, amount, category, date } }) => (
-            <ExpenseListItem
-              amount={amount}
-              category={category}
-              description={description}
-              date={date}
-            />
-          )}
-          contentContainerStyle={{ gap: 12, marginTop: 24, paddingBottom: 56 }}
-          showsVerticalScrollIndicator={false}
+      <ExpenseList
+        expenseList={expenseList}
+        isExpensesFetching={isExpensesFetching}
+      />
+
+      {totalExpenseCount > 5 && (
+        <Pagination
+          page={page}
+          setPage={setPage}
+          totalCount={totalExpenseCount}
+          perPage={ITEMS_PER_PAGE}
         />
       )}
     </View>
