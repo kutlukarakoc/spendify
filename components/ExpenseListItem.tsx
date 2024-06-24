@@ -42,17 +42,26 @@ export const ExpenseListItem = ({
           <Text className="text-foreground font-semibold text-base native:text-base">
             {selectedCategory.name}
           </Text>
-          <Text className="text-foreground/65 mt-1 text-sm native:text-sm w-[105px]" numberOfLines={1}>
+          <Text
+            className="text-foreground/65 mt-1 text-sm native:text-sm w-[105px]"
+            numberOfLines={1}
+          >
             {description}
           </Text>
         </View>
       </View>
 
-      <Text className="text-foreground/55 text-base native:text-base" numberOfLines={1}>
+      <Text
+        className="text-foreground/55 text-base native:text-base"
+        numberOfLines={1}
+      >
         {formattedDate}
       </Text>
 
-      <Text className="text-primary text-base native:text-base" numberOfLines={1}>
+      <Text
+        className="text-primary text-base native:text-base"
+        numberOfLines={1}
+      >
         {amount} ₺
       </Text>
 
