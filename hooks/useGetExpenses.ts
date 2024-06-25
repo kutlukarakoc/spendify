@@ -67,7 +67,9 @@ export const useGetExpenses = (perPage: number) => {
 
     if (searchQuery.length > 0) {
       filteredExpenses = filteredExpenses.filter((expense: Expense) =>
-        expense.description.includes(searchQuery)
+        expense.description
+          .toLowerCase()
+          .includes(searchQuery.toLocaleLowerCase())
       );
     }
 
