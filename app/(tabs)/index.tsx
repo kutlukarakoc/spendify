@@ -11,17 +11,28 @@ import { useGetExpenses } from "~/hooks/useGetExpenses";
 import { Pagination } from "~/components/Pagination";
 import { ExpenseListError } from "~/components/ExpenseListError";
 import { ExpenseListNoData } from "~/components/ExpenseListNoData";
+import debounce from "lodash/debounce";
 
 const ITEMS_PER_PAGE = 5;
 
 export default function HomeScreen() {
   const isFocused = useIsFocused();
 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [page, setPage] = useState(1);
   const [selectedCategory, setSelectedCategory] =
     useState<TransformedCategory | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState(searchQuery);
 
-  const [page, setPage] = useState(1);
+  useEffect(() => {
+    const handler = debounce(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 500);
+
+    handler();
+
+    return () => handler.cancel();
+  }, [searchQuery]);
 
   const {
     getExpenses,
@@ -34,11 +45,11 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (isFocused) {
-      getExpenses(searchQuery, selectedCategory, page);
+      getExpenses(debouncedSearchQuery, selectedCategory, page);
     } else {
       cleanupExpenseStates();
     }
-  }, [isFocused, searchQuery, selectedCategory, page]);
+  }, [isFocused, debouncedSearchQuery, selectedCategory, page]);
 
   if (expensesError) {
     return <ExpenseListError />;
