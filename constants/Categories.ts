@@ -26,7 +26,7 @@ export const Categories = {
   },
   health: {
     name: "Sağlık",
-    color: "#F3A7A7",
+    color: "#FF6961",
     icon: "fitness-outline",
   },
   food: {
