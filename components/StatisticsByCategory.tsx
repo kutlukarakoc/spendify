@@ -1,38 +1,22 @@
 import { PieChart } from "react-native-gifted-charts";
 import { View, Text } from "react-native";
-import { Categories } from "~/constants/Categories";
 import { useColorScheme } from "~/lib/useColorScheme";
-import { hexToRgba } from "~/lib/helpers/hexToRgba";
+import { Expense } from "~/types/expense";
+import { calculateExpenses } from "~/lib/helpers/calculateExpenses";
 
-const pieData = [
-  { value: 5, category: "transport" },
-  { value: 10, category: "shopping" },
-  { value: 10, category: "education" },
-  { value: 5, category: "invoice" },
-  { value: 20, category: "entertainment" },
-  { value: 0, category: "health" },
-  { value: 20, category: "food" },
-  { value: 30, category: "other" },
-];
+type StatisticsByCategoryProps = {
+  expenseList: Expense[];
+};
 
-const formattedPieData = pieData
-  .filter((item) => item.value > 0)
-  .map((item) => {
-    return {
-      ...item,
-      color: hexToRgba(
-        Categories[item.category as keyof typeof Categories].color,
-        0.7
-      ),
-      label: Categories[item.category as keyof typeof Categories].name,
-    };
-  });
-
-export const StatisticsByCategory = () => {
+export const StatisticsByCategory = ({
+  expenseList,
+}: StatisticsByCategoryProps) => {
   const { isDarkColorScheme } = useColorScheme();
 
+  const pieData = calculateExpenses(expenseList);
+
   return (
-    <View className="w-full min-h-80 p-4 mt-5 mb-14 bg-background rounded-2xl shadow-md shadow-foreground/5">
+    <View className="w-full min-h-80 p-4 mt-5 bg-background rounded-2xl shadow-md shadow-foreground/5">
       <Text className="mb-7 text-foreground/70 font-medium leading-5">
         Kategoriye Göre Harcama İstatistikleri
       </Text>
@@ -40,13 +24,13 @@ export const StatisticsByCategory = () => {
       <View className="flex-row justify-between items-center gap-10 flex-1">
         <PieChart
           donut
-          data={formattedPieData}
+          data={pieData}
           radius={90}
           backgroundColor={isDarkColorScheme ? "#020817" : "white"}
         />
 
         <View className="justify-center items-stretch flex-1 gap-y-3">
-          {formattedPieData.map((item, index) => (
+          {pieData.map((item, index) => (
             <View key={index} className="flex-row justify-start items-start">
               <View className="flex-row justify-start items-start flex-1">
                 <View
