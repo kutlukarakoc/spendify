@@ -4,7 +4,7 @@ import { getStorageItem } from "~/lib/utils";
 import { Expense } from "~/types/expense";
 import { GetStorageItem } from "~/types/getStorageItemReturn";
 
-export const useGetExpenses = (perPage: number) => {
+export const useGetExpenses = (perPage: number, getAll?: boolean) => {
   const [expenseList, setExpenseList] = useState<Expense[] | null>(null);
   const [totalExpenseCount, setTotalExpenseCount] = useState<number>(0);
   const [expensesError, setExpensesError] = useState<string | null>(null);
@@ -35,6 +35,16 @@ export const useGetExpenses = (perPage: number) => {
       }
       setIsExpensesFetching(false);
 
+      return;
+    }
+
+    if (getAll) {
+      setTotalExpenseCount(expenses.data.length);
+      setExpenseList(expenses.data);
+      setIsExpensesFetching(false);
+      if (expensesError !== null) {
+        setExpensesError(null);
+      }
       return;
     }
 
